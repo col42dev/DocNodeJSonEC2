@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Node JS on EC2</title>
+    </head>
+    <body>
+        <h1>Node JS on EC2</h1>
+        
+        
+  <h3><b>Connect with vSSH </b></h3>
+    <p>Enter your instance’s public DNS address shown in the EC2 console in the Host Name field. in the Private Key field, select the cmoore.pem key file in the drop down box</p>
+    <p> ssh -i cmoore.pem ec2-user@ec2-54-218-106-145.us-west-2.compute.amazonaws.com</p>
+    <p> ssh -i .ssh/cmoore.pem ec2-user@ec2-54-218-106-145.us-west-2.compute.amazonaws.com </p>
+    <p> sudo su -</p>
+    <p> <a href="http://ec2-54-218-106-145.us-west-2.compute.amazonaws.com">http://ec2-54-218-106-145.us-west-2.compute.amazonaws.com</a></p>
+    
+    
+	<h2>Install Nginx on Amazon Linux AMI</h2>
+	
+	<p>Run updates and reboot.</p>
+	
+	<code>
+	<pre> 
+	sudo yum update<br />
+	sudo reboot<br />
+	</pre>
+	</code>
+
+	
+	
+	<p>Install nginx, enable at startup, and start service.</p>
+	
+	<code>
+	<pre>   
+	cd /usr/share/<br/>
+	sudo yum install nginx<br />
+	sudo chkconfig nginx on<br />
+	sudo service nginx start<br />
+	</pre>
+	</code>
+
+    <p>Congratulations you have successfully created an Amazon EC2 instance and installed Nginx.  You should now be able to browse to the elastic IP or the public DNS of your instance and see a page similar to below.
+	<p> <a href="http://ec2-54-218-106-145.us-west-2.compute.amazonaws.com">http://ec2-54-218-106-145.us-west-2.compute.amazonaws.com</a></p>
+  
+	
+	</div>
+	<h2>Using Git to deploy my application to the server</h2>
+	<p>I develop my applications locally using Aptana Studio, and use Git for version control.</p>
+	<p>I also deploy the application to the production server (my EC2 instance) using git, giving me the ability to roll back to previous versions when I break something.</p>
+	<p>The  workflow is simply:</p>
+	<p>On my Mac:</p>
+	<pre>cd myapp
+	<em># make changes ...</em>
+	git commit
+	git push</pre>
+	<div>
+	<p>then when I&#8217;m ready to deploy to the server, I log into the AWS instance using vSSH and clone the git repository there</p>
+	</div>
+	<pre>mkdir myapp
+	cd myapp
+	git clone https://github.com:/my_name/path_to_myapp_repository</pre>
+	<div>thereafter, i can simply SSH into the server and use</div>
+	<pre>git pull</pre>
+	<div>
+	<p>to checkout the latest version from the repository on github, then</p>
+	</div>
+	<pre>node app.js</pre>
+	<div>
+	<p>to start the Node server and run my application</p>
+	
+	
+	
+    
+	</div>
+	<h2>Install Node.js and NPM on your server</h2>
+	<p>At last, it’s time to install Node.js on your Amazon Linux server! We are going to install some required packages to compile Node and get Node from its Github repo. Type the following:</p>
+	<code></code>
+	<pre>
+	sudo yum install gcc-c++ make
+	sudo yum install openssl-devel
+	sudo yum install git
+	git clone git://github.com/joyent/node.git
+	cd node
+	</pre>
+	</code>
+	<div>
+	<p>Now you need to decide which version of Node you want to install. You can view all available Node tags (versions) by typing git tag -l. The make command will take a while to complete (30+ minutes), so go make a coffee and come back later.</p>
+	</div>
+	<code>
+	<pre>
+	git checkout v0.8.1
+	./configure
+	make
+	sudo make install
+	</pre>
+	<code>
+	<p>OK, Node is now installed!</p>
+	<p>Let’s add it to sudo’s path so that we can install more packages. You will need to edit the /etc/sudoers file.</p>
+	<pre>sudo vi /etc/sudoers</pre>
+	<p>find this line:</p>
+	<pre>Defaults secure_path = /sbin:/bin:/usr/sbin:/usr/bin</pre>
+	<div>
+	<p>move the cursor to the end of the line and hit the insert button to append the text</p>
+	</div>
+	<pre>:/usr/local/bin</pre>
+	<p>exit insert mode, save your changes and exit VI, by hitting ESC and typing<strong> :w!</strong></p>
+	<p>The next step is to install NPM (the Node package manager).</p>
+	<div>
+	<p>Type the following commands:</p>
+	</div>
+	<code>
+	<pre>
+	git clone https://github.com/isaacs/npm.git
+	cd npm
+	sudo make install
+	</pre>
+	</code>
+	<h3><strong>Congratulations</strong></h3>
+	<p>You now have a working Amazon EC2 instance with Node.js and NPM, and you&#8217;re ready to install any additional Node library  packages you need !</p>
+	<h2>Installing Node library packages</h2>
+	<div>
+	<p>You can install additional Node packages using NPM like this :</p>
+	</div>
+	
+	<code>
+	<pre>
+	sudo npm install express -g
+	sudo npm install socket.io -g
+	</pre>
+	</code>
+
+
+
+    </body>
+</html>
