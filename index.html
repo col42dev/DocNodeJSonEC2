@@ -4,6 +4,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Node JS on EC2</title>
+        <link rel="stylesheet" href="./src/css/bootstrap.css">
+        <link rel="stylesheet" href="./src/css/docs.css">
     </head>
     <body>
         <h1>Node JS on EC2</h1>
@@ -53,19 +55,18 @@
 	<p>On my Mac:</p>
 	<pre>
 	cd myapp
-	<em># make changes ...</em>
-	touch README.md
+	touch README
     git init
-    git add README.md
+    git add README
     git commit -m "first commit"
-    git remote add origin https://github.com/col42dev/EffectiveJS.git
+    git remote add origin https://github.com/col42dev/DocNodeJSonEC2.git
     git push -u origin master
-
+    </pre>
 
     <em>#Or push an existing repository from the command line</em>
-    git remote add origin https://github.com/col42dev/EffectiveJS.git
+    <pre>
+    git remote add origin https://github.com/col42dev/DocNodeJSonEC2.git
     git push -u origin master
-
 	</pre>
 	<div>
 	<p>then when I&#8217;m ready to deploy to the server, I log into the AWS instance using vSSH and clone the git repository there</p>
@@ -73,7 +74,8 @@
 	<pre>
 	mkdir myapp
 	cd myapp
-	git clone https://github.com:/col42dev/path_to_myapp_repository</pre>
+	git clone https://github.com/col42dev/DocNodeJSonEC2.git
+	</pre>
 	<div>thereafter, i can simply SSH into the server and use</div>
 	<pre>
 	git pull
