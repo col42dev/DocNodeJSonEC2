@@ -51,22 +51,39 @@
 	<p>I also deploy the application to the production server (my EC2 instance) using git, giving me the ability to roll back to previous versions when I break something.</p>
 	<p>The  workflow is simply:</p>
 	<p>On my Mac:</p>
-	<pre>cd myapp
+	<pre>
+	cd myapp
 	<em># make changes ...</em>
-	git commit
-	git push</pre>
+	touch README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git remote add origin https://github.com/col42dev/EffectiveJS.git
+    git push -u origin master
+
+
+    <em>#Or push an existing repository from the command line</em>
+    git remote add origin https://github.com/col42dev/EffectiveJS.git
+    git push -u origin master
+
+	</pre>
 	<div>
 	<p>then when I&#8217;m ready to deploy to the server, I log into the AWS instance using vSSH and clone the git repository there</p>
 	</div>
-	<pre>mkdir myapp
+	<pre>
+	mkdir myapp
 	cd myapp
-	git clone https://github.com:/my_name/path_to_myapp_repository</pre>
+	git clone https://github.com:/col42dev/path_to_myapp_repository</pre>
 	<div>thereafter, i can simply SSH into the server and use</div>
-	<pre>git pull</pre>
+	<pre>
+	git pull
+	</pre>
 	<div>
 	<p>to checkout the latest version from the repository on github, then</p>
 	</div>
-	<pre>node app.js</pre>
+	<pre>
+	node app.js
+	</pre>
 	<div>
 	<p>to start the Node server and run my application</p>
 	
@@ -131,6 +148,20 @@
 	</pre>
 	</code>
 
+	<h2><strong>Installing a Database on AWS</strong></h2>
+	<div>
+
+	<p>Developers can download and install NoSQL databases of their choice on Amazon EC2. That is what we will do next &#8211; we&#8217;ll install the increasingly popular MongoDB NoSQL database.</p>
+
+<h2><strong>Choosing MongoDB</strong></h2>
+<p>Because we&#8217;re programming in Javascript, it makes sense to use a noSQL database that uses JSON to store objects directly, making our programming job easier. MongoDb stores JSON objects in a binary BSON format, but that conversion is hidden from the application programmer &#8211; we will use the Mongoose Javascript library for accessing MongoDB, and the arguments are normal Javascript  objects.</p>
+<p>10gen develops and supports MongoDB, an open source, high performance document-oriented NoSQL database. MongoDB shines because of its ease of use for developers. Whether you&#8217;re using it in a large-scale application that spans hundreds or thousands of nodes, or in a single-server application that has no need for scale, MongoDB is great for modelling the entities that underlie modern web-apps.</p>
+<p>but how do we add a MongoDB database on AWS so that we can then start to build our web application ?</p>
+
+
+	<h3><strong>Reference</strong></h3>
+	
+    <a href="http://thefloppydisk.wordpress.com/2013/04/25/a-node-js-application-on-the-amazon-cloud-part-1-installing-node-on-an-ec2-instance/">A Node.JS Application on the Amazon Cloud. Part 1: Installing Node on an EC2 instance</a>
 
 
     </body>
